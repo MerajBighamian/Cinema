@@ -1,0 +1,75 @@
+{% extends 'ticketing/base_page.html' %}
+   {% block title %}
+        سانس های نمایش
+   {% endblock %}
+
+    {% block toolbar_title %}
+        فهرست سانس های نمایش
+    {% endblock %}
+
+    {% block main_content %}
+        <div class="row">
+        {% if showtimes %}
+            <div class="row px-2">
+                <form action="" method="get">
+                    <!-- this is a search form -->
+                    {{ search_form.as_ul}}
+                    <!-- this is a search form -->
+                    <button type="submit" class="btn btn-info">جست و جو</button>
+                </form>
+            </div><br>
+            <br>
+            <div class="alert alert-info">
+                {{ showtimes.count }}
+            </div>
+            <div class="row px-2">
+                {% for showtime in showtimes %}
+                    <div class="col-3 px-2 py-2">
+                        <a href="{% url 'ticketing_app:showtime_details' showtime_id=showtime.pk %}"  class="showtime-box btn
+                           {% if showtime.status != showtime.SALE_OPEN %}
+                                disabled btn-outline-secondary
+                           {% else %}
+                                btn-outline-dark
+                           {% endif %}
+">
+                            <span>{{ showtime.movie}}</span>
+                            <br>
+                            <span>{{ showtime.cinema}}</span>
+                            <br>
+                            <span>
+                                {{ showtime.start_time|date:"1 n/j ساعت H:i"}}
+                            </span>
+                            <span class="showtime-status badge
+                                {% if showtime.status == showtime.SALE_NOT_STARTED %}
+                                    badge-warning
+                                {% elif showtime.status == showtime.SHOW_CANSELED %}
+                                    badge-danger
+                                {% elif showtime.status == showtime.SALE_OPEN %}
+                                    badge-success
+                                {% else %}
+                                    badge-secondary
+                                {% endif %}
+                                ">
+                                {% if showtime.status == showtime.SALE_OPEN %}
+                                    {{ showtime.get_price_display }}
+                                {% else %}
+                                    {{ showtime.get_status_display }}
+                                {% endif %}
+                            </span>
+                            {% if showtime.status == showtime.SALE_OPEN and showtime.free_seats < 10 %}
+                                <span class="badge badge-danger">
+                                    {{ showtime.free_seats }}
+                                    صندلی
+                                </span>
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                در حال حاضر هیچ سانسی برای نمایش وجود ندارد.
+            </div>
+        {% endif %}
+        </div>
+    {% endblock %}

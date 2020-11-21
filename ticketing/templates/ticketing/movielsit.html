@@ -1,0 +1,32 @@
+{% extends "ticketing/base_page.html" %}
+    {% block title %}
+    فیلم  ها
+    {% endblock %}
+    {% block toolbar_title%}
+        فهرست فیلم ها
+    {% endblock %}
+    {% block main_content %}
+        <div class="row">
+            <div class="col py-3">
+
+                {% if movie_list %}
+                    <p class="alert-fix alert alert-success ">تعداد {{ movie_count }} فیلم موجود است.</p>
+                    <ul class="list-group" id="list-show">
+                        {% for movie in movie_list %}
+                           <a href="{% url "ticketing_app:movie_datails" movie_id=movie.pk %}">
+                                 <li class="list-group-item list-group-item-action list-group-item-dark">
+                                     <i class="fa fa-film" aria-hidden="true"></i>
+                                    {{ movie }}
+                                    <small class="text-muted">
+                                        ({{ movie.director }})
+                                    </small>
+                                </li>
+                           </a>
+                        {% endfor %}
+                    </ul>
+                {% else%}
+                     <div class="alert alert-danger">فیلمی وجود ندارد</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}

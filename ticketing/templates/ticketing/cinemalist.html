@@ -1,0 +1,32 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+لیست سینما ها
+{% endblock %}
+{% block toolbar_title %}
+فهرست سینما ها
+{% endblock %}
+
+        {% block main_content %}
+        <div class="row">
+            <div class="col py-3">
+                {% if cinema_list %}
+                    <p class=" alert-fix alert alert-success ">تعداد {{ cinema_count }} سینما موجود است.</p>
+                    <ul class="list-group" id="list-show">
+                        {% for cinema in cinema_list %}
+                            <a href="{% url "ticketing_app:cinema_details" cinema_id=cinema.pk %}">
+                                <li class="list-group-item list-group-item-action list-group-item-dark" >
+                                     <i class="fa fa-building" aria-hidden="true"></i>
+                                    {{ cinema }}
+                                    <small class="text-muted">({{ cinema.city }})</small>
+                                </li>
+                            </a>
+                        {% endfor %}
+                    </ul>
+                {% else%}
+                     <p class="alert alert-danger">سینمایی وجود ندارد</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock %}
+
+

@@ -1,0 +1,25 @@
+{% extends 'ticketing/base_page.html' %}
+{% block toolbar_title %}
+    بلیط {{ ticket.showtime.movie.name }}
+{% endblock %}
+{% block main_content %}
+        <div>
+            زمان خرید  : {{ ticket.order_time|date:'Y/n/j - H:i' }}
+        </div>
+        <div>
+            تعداد صندلی : {{ ticket.seat_count }}
+        </div>
+        <div>
+            نام فیلم : {{ ticket.showtime.movie.name }}
+        </div>
+        <div>
+            نام سینما : {{ ticket.showtime.cinema }}
+        </div>
+        <div>
+            {% if ticket.showtime.cinema.address %}
+                آدرس سینما : {{ ticket.showtime.cinema.address }}
+            {% else %}
+                آدرس سینما موجود نیست
+            {% endif %}
+        </div>
+{% endblock %}

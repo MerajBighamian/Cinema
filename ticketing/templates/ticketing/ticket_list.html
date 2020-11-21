@@ -1,0 +1,20 @@
+{% extends 'ticketing/base_page.html' %}
+{% block toolbar_title %}
+    لیست بلیط ها
+{% endblock %}
+{% block main_content %}
+    {% for ticket in tickets %}
+        <div class="btn btn-secondary">
+            <div>
+                زمان خرید  : {{ ticket.order_time|date:'Y/n/j - H:i' }}
+            </div>
+            <div>
+                تعداد صندلی : {{ ticket.seat_count }}
+            </div>
+            <div>
+                نام فیلم : {{ ticket.showtime.movie.name }}
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}

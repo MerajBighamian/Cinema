@@ -1,0 +1,32 @@
+{% extends 'ticketing/base_page.html' %}
+   {% block title %}
+        {{ cinema.name }}
+   {% endblock %}
+
+    {% block toolbar_title %}
+        {{ cinema.name }}
+    {% endblock %}
+
+    {% block toolbar_button %}
+        <a class="button-fix btn btn-light py-1 px-2" href="{% url 'ticketing_app:movie_list' %}">
+                   <i class="fa fa-building" aria-hidden="true"></i>
+                    فیلم ها
+        </a>
+    {% endblock %}
+
+    {% block main_content %}
+        <div class="row">
+            <div class="col py-3">
+                <p>شهر :
+                    {{ cinema.city }}
+                 </p>
+                <p> ظرفیت سینما : {{ cinema.capacity }}</p>
+                <p>کد سینما : {{ cinema.cinema_code }}</p>
+                {% if cinema.poster %}
+                    <img src="{{ cinema.poster.url }}" alt="{{cinema.name}}"
+                {% else %}
+                    <p style="color: red;">عکسی از سینما موجود نیست</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}

@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static "ticketing/css/bootstrap.rtl.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "ticketing/css/bootstrap-grid.rtl.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "ticketing/css/fontawesome.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "ticketing/css/all.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "ticketing/css/main.css" %}">
+</head>
+<body style="direction: rtl;!important">
+    <body dir="rtl">
+    <div class="container" id="countainer">
+        <div class="row align-items-center" id="header">
+            <div class="col text-center">
+                <h2>سامانه فروش بلیط سینما</h2>
+            </div>
+        </div>
+        <div class="row align-items-center" id="toolbar">
+            <div class="col-6 ">
+                <h4>
+                    {% block toolbar_title %}
+
+                    {% endblock %}
+                </h4>
+            </div>
+            <div class="col-6 text-left">
+               {% block toolbar_button %}
+                    <a class="button-fix btn btn-light py-1 px-1" href="{% url 'ticketing_app:movie_list' %}">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                             فیلم ها
+                    </a>
+                    <a class="button-fix btn btn-light py-1 px-1" href="{% url 'ticketing_app:cinema_list' %}">
+                          <i class="fa fa-building" aria-hidden="true"></i>
+                          سینما ها
+                    </a>
+                    <a class="button-fix btn btn-success py-1 px-1" href="{% url 'ticketing_app:showtime_list' %}">
+                          <i class="fa fa-building" aria-hidden="true"></i>
+                          خرید بلیط
+                    </a>
+                   {% if user.is_authenticated %}
+                        {# TODO : User Buttons #}
+                        <a class="btn btn-primary px-1" href="{% url 'accounts:profile_details' %}" >
+                            {{ user.username}}
+                        </a>
+                         <a class="btn btn-success px-1" href="{% url 'ticketing_app:ticket_list'%}" >
+                            بلیط های من
+                        </a>
+                        <a class="btn btn-primary" href="{% url 'accounts:logout' %}" >
+                            خروج
+                        </a>
+
+                   {% else %}
+                        {# TODO : Login Buttons #}
+                       <a class="button-fix btn btn-primary py-1 px-2 mr-3" href="{% url 'accounts:login'%}">
+                          <i class="fa fa-building" aria-hidden="true"></i>
+                          ورود
+                        </a>
+                   {% endif %}
+               {% endblock %}
+            </div>
+        </div>
+        {% include "ticketing/_ad.html" with company="intel" color="success"%}
+        {% block main_content %}
+        {% endblock %}
+        {% include "ticketing/_ad.html" with company="intel" color="success"%}
+    </div>
+
+
+
+    <script src="{% static "ticketing/js/jquery-3.5.1.min.js" %}"></script>
+    <script src="{% static "ticketing/js/bootstrap.js" %}"></script>
+    <script src="{% static "ticketing/js/bootstrap.bundle.js" %}"></script>
+    <script src="{% static "ticketing/js/fontawesome.js" %}"></script>
+    <script src="{% static "ticketing/js/main.js" %}"></script>
+</body>
+</html>

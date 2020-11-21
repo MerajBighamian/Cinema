@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>نام فیلم : {{ showtime.movie }} </h3><br>
+    <h3>نام سینما : {{ showtime.cinema }} </h3><br>
+    <h3>شروع سانس : {{ showtime.start_time}}</h3><br>
+    <h3>آدرس سینما : {{ showtime.cinema.address }} </h3><br>
+    <h3>قیمت بلیط : {{ showtime.price }} </h3><br>
+    <form action="" method="post">
+        {% csrf_token %}
+        <label>تعداد یلیط</label>
+        <select name="seat_count">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <button type="submit">خریذ بلیط</button>
+    </form>
+</body>
+</html>

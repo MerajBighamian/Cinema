@@ -1,0 +1,36 @@
+{% extends 'ticketing/base_page.html' %}
+   {% block title %}
+        {{ movie.name }}
+   {% endblock %}
+
+    {% block toolbar_title %}
+        {{ movie.name }}
+    {% endblock %}
+
+    {% block toolbar_button %}
+        {{ block.super }}
+       <a class="button-fix btn btn-light py-1 px-2" href="{% url 'ticketing_app:cinema_list' %}">
+           <i class="fa fa-building" aria-hidden="true"></i>
+           سینما ها
+       </a>
+    {% endblock %}
+
+    {% block main_content %}
+         <div class="row">
+            <div class="col py-3">
+                <p>کارگردان :
+                    {{ movie.director }}
+                 </p>
+                <p>سال ساخت : {{ movie.year }}</p>
+                <p>زمان فیلم : {{ movie.length }}</p>
+                <p>توضیحات : {{ movie.description }}</p>
+                <img src="{{ movie.poster.url}}" alt="{{ movie.name }}">
+            </div>
+        </div>
+    {% endblock %}
+
+
+
+
+
+
