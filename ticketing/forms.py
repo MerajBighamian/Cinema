@@ -23,3 +23,16 @@ class ShowTimeSearchForm(forms.Form):
     price_level = forms.ChoiceField(label='محدوده قیمت', choices=PRICE_LEVEL_CHOICES, required=False)
 
     cinema = forms.ModelChoiceField(label='سینما', queryset=Cinema.objects.all(), required=False)
+
+    def get_price_boundries(self):
+        price_level = self.cleaned_data['price_level']
+        if price_level == ShowTimeSearchForm.PRICE_UNDER_10:
+            return None, 10000
+        if price_level == ShowTimeSearchForm.PRICE_10_TO_15:
+            return 10000, 15000
+        if price_level == ShowTimeSearchForm.PRICE_15_TO_20:
+            return 15000, 20000
+        if price_level == ShowTimeSearchForm.PRICE_ABOVE_20:
+            return 20000, None
+        else:
+            return None, None

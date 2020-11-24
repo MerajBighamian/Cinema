@@ -67,6 +67,12 @@ def showtime_list(request):
             showtime = showtime.filter(movie__length__lte=search_form.cleaned_data['movie_length_max'])
         if search_form.cleaned_data['cinema'] is not None:
             showtime = showtime.filter(cinema=search_form.cleaned_data['cinema'])
+
+        min_price, max_price = search_form.get_price_boundries()
+        if min_price is not None:
+            showtime = showtime.filter(price__gte=min_price)
+        if max_price is not None:
+            showtime=showtime.filter(price__lt=max_price)
     showtime = showtime.order_by('start_time')
     context = {
         "showtimes": showtime,
