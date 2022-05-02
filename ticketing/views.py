@@ -89,11 +89,11 @@ def showtime_list(request):
 # else:
 #     return HttpResponseRedirect(reverse('accounts:login'))
 # ----------------------------------
-
-@login_required # login required decorator
 """
 show time details view
 """
+@login_required # login required decorator
+
 def showtime_details(request, showtime_id):
     showtime = ShowTime.objects.get(pk=showtime_id)
     context = {
@@ -120,11 +120,10 @@ def showtime_details(request, showtime_id):
         # return HttpResponseRedirect(reverse('ticketing_app:showtime_details showtime_id=showtime_id'))
     return render(request, 'ticketing/showtime_details.html', context)
 
-
-@login_required
 """
 ticket list view
 """
+@login_required
 def ticket_list(request):
     tickets = Ticket.objects.filter(customer=request.user.profile).order_by('-order_time')
     context = {
@@ -132,11 +131,11 @@ def ticket_list(request):
     }
     return render(request, 'ticketing/ticket_list.html', context)
 
-
-@login_required
 """
 ticket details view
 """
+@login_required
+
 def ticket_details(request, ticket_id):
     ticket = Ticket.objects.get(pk=ticket_id)
     context = {

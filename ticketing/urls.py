@@ -4,6 +4,7 @@ from . import views
 
 app_name = 'ticketing_app' # app_name for clean url routing
 urlpatterns = [
+    path('',views.showtime_list),
     path('movie/list', views.movie_list, name='movie_list'), # view for show movie list
     path('movie/details/<int:movie_id>/', views.movie_details, name='movie_datails'), # view for show movie detail with specify movie_id
     path('cinema/details/<int:cinema_id>', views.cinema_details, name='cinema_details'), # view for show cinema detail with specify cinema_id
