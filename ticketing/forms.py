@@ -1,6 +1,9 @@
 from django import forms
 from ticketing.models import Cinema
 
+"""
+a form for search showtimes
+"""
 class ShowTimeSearchForm(forms.Form):
     movie_name = forms.CharField(max_length=100, label='نام فیلم', required=False)
     sale_is_open = forms.BooleanField(label='فقط سانس های قابل خرید', required=False)
@@ -24,7 +27,7 @@ class ShowTimeSearchForm(forms.Form):
 
     cinema = forms.ModelChoiceField(label='سینما', queryset=Cinema.objects.all(), required=False)
 
-    def get_price_boundries(self):
+    def get_price_boundries(self): # for specify price level in filter of searching
         price_level = self.cleaned_data['price_level']
         if price_level == ShowTimeSearchForm.PRICE_UNDER_10:
             return None, 10000
