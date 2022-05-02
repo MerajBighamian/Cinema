@@ -57,6 +57,10 @@ class ShowTime(models.Model):
     price = models.IntegerField("قیمت")
     sabale_seats = models.IntegerField('تعداد صندلی ها')
     free_seats = models.IntegerField("تعداد صندلی خالی")
+    
+    """
+    define constant for choice status of showtime
+    """
     SALE_NOT_STARTED = 1
     SALE_OPEN = 2
     TICKETS_SALE = 3
@@ -75,15 +79,15 @@ class ShowTime(models.Model):
     status = models.IntegerField("وضعیت", choices=status_choice)
 
     def __str__(self):
-        return '{} - {} - {}'.format(self.movie, self.cinema, self.start_time)
+        return '{} - {} - {}'.format(self.movie, self.cinema, self.start_time) # return movie and cinema name of showtime and start_time that
 
     def get_price_display(self):
-        return "{} تومان".format(self.price)
+        return "{} تومان".format(self.price) # show price with toman format
 
     def get_status_display(self):
-        return self.status_choice[self.status - 1][1]
+        return self.status_choice[self.status - 1][1] # method for return status of show time
 
-    def reserve_seat(self, seat_count):
+    def reserve_seat(self, seat_count): # methos for reserve seat of show time
         assert isinstance(seat_count, int) and seat_count > 0, 'Number of seats is no valid'
         assert self.status == ShowTime.SALE_OPEN, 'sale is not open'
         assert self.free_seats >= seat_count, 'not enough free seats'
@@ -91,10 +95,10 @@ class ShowTime(models.Model):
         if self.free_seats == 0:
             self.status = ShowTime.TICKETS_SALE
         self.save()
-
+    # ---------------------------------------------------------------------------------
         # this is a query of show time model -------->      ShowTimw.objects.filter(movie__year__gt=1380,
-    # cinema__city="Tehran").exclude(price__lt=1000)
-
+        # cinema__city="Tehran").exclude(price__lt=1000)
+    # ---------------------------------------------------------------------------------
 
 class Ticket(models.Model):
     """
@@ -111,4 +115,4 @@ class Ticket(models.Model):
     order_time = models.DateTimeField('زمان خرید', auto_now_add=True)
 
     def __str__(self):
-        return '{} بلیت به نام {} برای فیلم {}'.format(self.seat_count, self.customer, self.showtime.movie)
+        return '{} بلیت به نام {} برای فیلم {}'.format(self.seat_count, self.customer, self.showtime.movie) # return seat count and custorm name of ticket and movie name too
