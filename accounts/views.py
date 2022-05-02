@@ -7,14 +7,15 @@ from django.urls import reverse
 # from django.contrib.auth.models import User
 
 
+# define login_view
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        username = request.POST.get('username') # get user name
+        password = request.POST.get('password') # get password
+        user = authenticate(request, username=username, password=password) # authentication user
         if user is not None:
             # Succesful login
-            login(request, user)
+            login(request, user) # login user 
             return HttpResponseRedirect(reverse('ticketing_app:cinema_list'))
         else:
             # undefined user or wrong password
@@ -30,14 +31,14 @@ def login_view(request):
         context = {}
     return render(request, 'accounts/login.html', context)
 
-
+# define logout view
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('accounts:login'))
 
 
 @login_required
-def profile_details(request):
+def profile_details(request): # view for show profile details
     profile = request.user.profile
     context = {
         'profile': profile,
